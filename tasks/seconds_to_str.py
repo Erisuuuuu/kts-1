@@ -23,10 +23,12 @@ def seconds_to_str(seconds: int) -> str:
     minu = seconds // 60
     seconds -= (minu * 60)
     sec = seconds
-    if day == 0:
-        if hours == 0:
-            if minu == 0:
-                return f'{sec}s'
-            return f'{minu}m{sec}s'
-        return f'{hours}h{minu}m{sec}s'
-    return f'{day}d{minu}m{sec}s'
+
+    if day > 0:
+        return f'{day:02d}d{hours:02d}h{minu:02d}m{sec:02d}s'
+    elif hours > 0:
+        return f'{hours:02d}h{minu:02d}m{sec:02d}s'
+    elif minu > 0:
+        return f'{minu:02d}m{sec:02d}s'
+    else:
+        return f'{sec:02d}s'

@@ -1,17 +1,24 @@
+import re
 __all__ = ("find_shortest_longest_word",)
 
 
-def find_shortest_longest_word(text: str) -> tuple[str, str] | tuple[None, None]:
-    """Находит самое короткое и самое длинное слово.
+
+def find_shortest_longest_word(text: str) -> tuple:
+    """Находит самое короткое и самое длинное слово в тексте.
+
+    Args:
+        text (str): Входной текст.
 
     Returns:
-        (<самое короткое слово>, <самое длинное слово>) – если text содержит слова,
-        (None, None) – иначе
-
-    Example:
-        >> find_shortest_longest_word("а бб ввв")
-        ("а", "ввв")
-        >> find_shortest_longest_word(" \n\t ")
-        (None, None)
+        tuple: Кортеж из самого короткого и самого длинного слова.
     """
-    raise NotImplementedError
+    # Используем регулярное выражение для поиска всех слов
+    words = re.findall(r'\b\w+\b', text)
+
+    if not words:
+        return (None, None)
+
+    shortest_word = min(words, key=len)
+    longest_word = max(words, key=len)
+
+    return (shortest_word, longest_word)

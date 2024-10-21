@@ -7,11 +7,15 @@ T1 = TypeVar("T1")
 T2 = TypeVar("T2")
 
 
-def corresponding_pairs(arr1: list[T1], arr2: list[T2]) -> list[tuple[T1, T2]]:
-    """Формирует список пар из пары списков.
+def corresponding_pairs(list1: list, list2: list) -> list:
+    """Возвращает список кортежей, содержащих соответствующие элементы двух списков.
 
-    Example:
-        >> corresponding_pairs([1, 2], [3, 4])
-        [(1, 3), (2, 4)]
+    Args:
+        list1 (list): Первый список.
+        list2 (list): Второй список.
+
+    Returns:
+        list: Список кортежей, содержащих соответствующие элементы.
     """
-    raise NotImplementedError
+    min_length = min(len(list1), len(list2))
+    return [(list1[i], list2[i]) for i in range(min_length)]

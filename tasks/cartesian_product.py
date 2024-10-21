@@ -7,11 +7,18 @@ T1 = TypeVar("T1")
 T2 = TypeVar("T2")
 
 
-def cartesian_product(arr1: list[T1], arr2: list[T2]) -> list[tuple[T1, T2]]:
-    """Определяет декартово произведение двух списков.
+def cartesian_product(list1: list, list2: list) -> list:
+    """Возвращает декартово произведение двух списков с использованием базовых конструкций.
 
-    Example:
-        >> cartesian_product([1, 2], [3, 4])
-        [(1, 3), (1, 4), (2, 3), (2, 4)]
+    Args:
+        list1 (list): Первый список.
+        list2 (list): Второй список.
+
+    Returns:
+        list: Список кортежей, представляющих все пары.
     """
-    raise NotImplementedError
+    result = []
+    for item1 in list1:
+        for item2 in list2:
+            result.append((item1, item2))
+    return result
