@@ -1,36 +1,37 @@
-from typing import Any
+from typing import TypeVar, Generic, List
 
-__all__ = (
-    'Node',
-    'Graph'
-)
+__all__ = ("Node", "Graph")
 
+T = TypeVar("T")
 
-class Node:
-    def __init__(self, value: Any):
-        self.value = value
-        self.outbound = []
-        self.inbound = []
+class Node(Generic[T]):
+    def __init__(self, value: T) -> None:
+        self._value = value
+        self.outbound: List[Node[T]] = []
+        self.inbound: List[Node[T]] = []
 
-    def point_to(self, other: 'Node'):
+    @property
+    def value(self) -> T:
+        return self._value
+
+    def point_to(self, other: "Node[T]") -> None:
         self.outbound.append(other)
         other.inbound.append(self)
 
-    def __str__(self):
-        return f'Node({repr(self.value)})'
+    def __str__(self) -> str:
+        return f"Node({repr(self._value)})"
 
     __repr__ = __str__
 
-
-class Graph:
-    def __init__(self, root: Node):
+class Graph(Generic[T]):
+    def __init__(self, root: Node[T]) -> None:
         self._root = root
 
-    def dfs(self) -> list[Node]:
+    def dfs(self) -> List[Node[T]]:
         visited = set()
         result = []
 
-        def _dfs(node: Node):
+        def _dfs(node: Node[T]) -> None:
             if node in visited:
                 return
             visited.add(node)
@@ -41,7 +42,7 @@ class Graph:
         _dfs(self._root)
         return result
 
-    def bfs(self) -> list[Node]:
+    def bfs(self) -> List[Node[T]]:
         visited = set()
         queue = [self._root]
         result = []
